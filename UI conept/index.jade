@@ -1,0 +1,93 @@
+// output: index.html
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  meta(http-equiv="X-UA-Compatible", content="ie=edge")
+  link(rel="stylesheet", href="css/fontawesome-all.css")
+  link(rel="stylesheet", href="css/style.min.css")
+  title Cross Section designer 2.0
+body
+  navigation
+    .tabs-buttons-bar
+      .tabs-buttons
+        a.tab-button.is-active#btn-file <i class="fas fa-file"></i> File
+      
+        a.tab-button#btn-geometry <i class="fas fa-pencil-alt"></i> Geometry
+          
+        a.tab-button#btn-setup <i class="fas fa-sliders-h"></i> Setup
+          
+        a.tab-button#btn-power <i class="fas fa-cogs"></i> Power Losses Pro
+          
+        a.tab-button#btn-forces <i class="fas fa-exchange-alt"></i> ElDyn Forces
+        
+        a.tab-button#btn-impedance <i class="fas fa-chart-bar"></i> Ipedance Calc
+        
+        a.tab-button#btn-help <i class="fas fa-question-circle"></i> Help
+          
+    .tabs-bar
+      .bar#file
+        .bar-button 
+          .ico <i class="fas fa-file"></i>
+          .label New Geometry 
+        .bar-button 
+          .ico <i class="fas fa-upload"></i>
+          .label Load
+        .bar-button 
+          .ico <i class="fas fa-download"></i>
+          .label Save
+          
+          
+      .bar.is-hidden#geometry
+        .bar-button.phase-selector.active#phA
+          .ico <i class="fas fa-edit"></i></i>
+          .label Draw Phase A
+        .bar-button.phase-selector#phB
+          .ico <i class="fas fa-edit"></i></i>
+          .label Draw Phase B
+        .bar-button.phase-selector#phC
+          .ico <i class="fas fa-edit"></i></i>
+          .label Draw Phase C
+        
+        // spacer
+        .bar-button-space 
+         
+        
+        .bar-button
+          .ico <i class="fas fa-th"></i>
+          .label Subdivide
+        .bar-button#power 
+          .ico <i class="fas fa-th-large"></i>
+          .label Simplify
+        .bar-button#forces 
+          .ico <i class="fas fa-clone"></i>
+          .label Pattern
+        .bar-button#impedance
+          .ico <i class="fas fa-exchange-alt"></i>
+          .label Swap
+      
+      .bar.is-hidden#setup
+        .bar-button
+          .label Grid size
+          input(type='text' value="10" size='4')
+          input(type='text' value="10" size='4')
+          input(type='submit' value='Apply')
+        
+        .bar-button
+          .label Area size
+          input(type='text' value="10" size='4')
+          input(type='text' value="10" size='4')
+          input(type='submit' value='Apply')
+        
+  
+  .geometry
+    #canvas-area
+      
+  
+  
+  script(src="js/jquery-3.2.1.min.js")
+  script(src="js/p5.js")
+  script(src="js/main.js")
+  
+  

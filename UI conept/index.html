@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <link rel="stylesheet" href="css/fontawesome-all.css"/>
+  <link rel="stylesheet" href="css/style.min.css"/>
+  <title>Cross Section designer 2.0</title>
+</head>
+<body>
+  <navigation>
+    <div class="tabs-buttons-bar">
+      <div class="tabs-buttons"><a id="btn-file" class="tab-button is-active"><i class="fas fa-file"></i> File</a><a id="btn-geometry" class="tab-button"><i class="fas fa-pencil-alt"></i> Geometry</a><a id="btn-setup" class="tab-button"><i class="fas fa-sliders-h"></i> Setup</a><a id="btn-power" class="tab-button"><i class="fas fa-cogs"></i> Power Losses Pro</a><a id="btn-forces" class="tab-button"><i class="fas fa-exchange-alt"></i> ElDyn Forces</a><a id="btn-impedance" class="tab-button"><i class="fas fa-chart-bar"></i> Ipedance Calc</a><a id="btn-help" class="tab-button"><i class="fas fa-question-circle"></i> Help</a></div>
+    </div>
+    <div class="tabs-bar">
+      <div id="file" class="bar">
+        <div class="bar-button"> 
+          <div class="ico"><i class="fas fa-file"></i></div>
+          <div class="label">New Geometry </div>
+        </div>
+        <div class="bar-button"> 
+          <div class="ico"><i class="fas fa-upload"></i></div>
+          <div class="label">Load</div>
+        </div>
+        <div class="bar-button"> 
+          <div class="ico"><i class="fas fa-download"></i></div>
+          <div class="label">Save</div>
+        </div>
+      </div>
+      <div id="geometry" class="bar is-hidden">
+        <div id="phA" class="bar-button phase-selector active">
+          <div class="ico"><i class="fas fa-edit"></i></i></div>
+          <div class="label">Draw Phase A</div>
+        </div>
+        <div id="phB" class="bar-button phase-selector">
+          <div class="ico"><i class="fas fa-edit"></i></i></div>
+          <div class="label">Draw Phase B</div>
+        </div>
+        <div id="phC" class="bar-button phase-selector">
+          <div class="ico"><i class="fas fa-edit"></i></i></div>
+          <div class="label">Draw Phase C</div>
+        </div>
+        <!-- spacer-->
+        <div class="bar-button-space"> </div>
+        <div class="bar-button">
+          <div class="ico"><i class="fas fa-th"></i></div>
+          <div class="label">Subdivide</div>
+        </div>
+        <div id="power" class="bar-button"> 
+          <div class="ico"><i class="fas fa-th-large"></i></div>
+          <div class="label">Simplify</div>
+        </div>
+        <div id="forces" class="bar-button"> 
+          <div class="ico"><i class="fas fa-clone"></i></div>
+          <div class="label">Pattern</div>
+        </div>
+        <div id="impedance" class="bar-button">
+          <div class="ico"><i class="fas fa-exchange-alt"></i></div>
+          <div class="label">Swap</div>
+        </div>
+      </div>
+      <div id="setup" class="bar is-hidden">
+        <div class="bar-button">
+          <div class="label">Grid size</div>
+          <input type="text" value="10" size="4"/>
+          <input type="text" value="10" size="4"/>
+          <input type="submit" value="Apply"/>
+        </div>
+        <div class="bar-button">
+          <div class="label">Area size</div>
+          <input type="text" value="10" size="4"/>
+          <input type="text" value="10" size="4"/>
+          <input type="submit" value="Apply"/>
+        </div>
+      </div>
+    </div>
+  </navigation>
+  <div class="geometry">
+    <div id="canvas-area"></div>
+  </div>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/p5.js"></script>
+  <script src="js/main.js"></script>
+</body>
