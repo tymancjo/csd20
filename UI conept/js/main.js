@@ -1,8 +1,8 @@
 // initial global variables to start with.
 XsecArray = [];
 var dXmm = 20;
-var Cols = 100;
-var Rows = 100;
+var Cols = 20;
+var Rows = 20;
 var canvasScale = 1;
 var globalZoom = 1;
 var minGrid = 3;
@@ -32,6 +32,10 @@ function setup() { // this one comes from p5
   $('#zoomout').click(zoomout);
   $('#zoomin').click(zoomin);
   $('#zoom1').click(zoom1);
+  $('#subdivide').click(() => {
+    XsecArray = subdivide();
+    redrawAndUpdate();
+  });
 
 
   $('.phase-selector').click((e) => {
@@ -67,18 +71,18 @@ function setup() { // this one comes from p5
   let size = Math.min(floor((canvasScale * windowWidth - 50) / Cols), floor((canvasScale * windowHeight - 200) / Rows));
 
   if (size < 4) {
-    size = 4
+    size = 4;
   }
 
-  // lets normalize the scale now
-  canvasScale = Math.max(windowWidth / width, windowHeight / height);
+  // // lets normalize the scale now
+  // canvasScale = Math.max(windowWidth / width, windowHeight / height);
 
 
   var canvas = createCanvas(size * Cols, size * Rows);
   canvas.parent('canvas-area');
   background(200);
 
-  dXpx = floor(min(height / Rows, width / Cols));
+  dXpx = round(min(height / Rows, width / Cols));
 
   drawGrid(Rows, Cols, dXpx);
 
@@ -100,6 +104,8 @@ function draw() {
 
 
 function redrawAndUpdate() {
+  dXpx = round(min(height / Rows, width / Cols));
+  resizeCanvas(dXpx * Cols, dXpx * Rows);
   background(200);
   drawGrid(Rows, Cols, dXpx);
   drawArray(XsecArray);
@@ -121,24 +127,24 @@ function mouseMoved() {
   return false;
 } // end of mouseMoved
 
-function mouseDraw(){
+function mouseDraw() {
   // this function react on user mouse moves and presses on canvas area.
 
   if (mouseRC().OK) { // if we are over canvas
-        let val;
+    let val;
 
-        if(mouseButton === LEFT){ // setting the value
-          val = currentPhase;
-        } else if (mouseButton === RIGHT){ // reseting the value
-          val = 0;
-        }
-        setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
-        drawPoint(mouseRC().C, mouseRC().R, val);
-      }// end if mouseRC().OK
+    if (mouseButton === LEFT) { // setting the value
+      val = currentPhase;
+    } else if (mouseButton === RIGHT) { // reseting the value
+      val = 0;
+    }
+    setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
+    drawPoint(mouseRC().C, mouseRC().R, val);
+  } // end if mouseRC().OK
 } // end of Mouse Draw
 
 function mouseDragged() {
-  if(mouseButton !== CENTER){ // drawing and setting up array
+  if (mouseButton !== CENTER) { // drawing and setting up array
     mouseDraw();
   } else { // paning around with mouse
 
@@ -151,7 +157,7 @@ function mouseDragged() {
 
 
 function mousePressed() {
-  if(mouseButton !== CENTER){ // drawing and setting up array
+  if (mouseButton !== CENTER) { // drawing and setting up array
     mouseDraw();
   } else { // setting up drag start point for panning
     dragStartX = winMouseX;
@@ -164,7 +170,7 @@ function mousePressed() {
   return false;
 } // end of mousePressed
 
-function mouseReleased(){
+function mouseReleased() {
   // prevent default
   return false;
-}// end of mouse mouseReleased
+} // end of mouse mouseReleased
