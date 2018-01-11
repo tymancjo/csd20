@@ -3,11 +3,55 @@
 
 // array manipulation Functions
 
-function simplify(Ar) {
+function simplify(Ar = XsecArray) {
   // this function is about reduce the resolution of the
   // cross section array by 2
+  let newArray = [];
 
-}
+  for (let r = 0; r < Rows; r += 2) {
+    for (let c = 0; c < Cols; c += 2) {
+      // we grab 4 adjected pixels
+      //and calculate the average
+      let Z = 0;
+      let A = 0;
+      let B = 0;
+      let C = 0;
+      let v = [];
+
+      v.push(Ar[index(c, r)]);
+      v.push(Ar[index(c + 1, r)]);
+      v.push(Ar[index(c, r + 1)]);
+      v.push(Ar[index(c + 1, r + 1)]);
+
+      for (let vx of v) {
+        if (vx == 0) {
+          Z++;
+        } else if (vx == 1) {
+          A++;
+        } else if (vx == 2) {
+          B++;
+        } else if (vx == 3) {
+          C++;
+        }
+      }
+
+      if (Z > A && Z > B && Z > C) {
+        av = 0;
+      } else if (A > B && A > C) {
+        av = 1;
+      } else if (B > C) {
+        av = 2;
+      } else {
+        av = 3;
+      }
+
+      newArray.push(av);
+    }
+  }
+  Cols = floor(Cols / 2);
+  Rows = floor(Rows / 2);
+  return newArray;
+} // end of simplify
 
 function subdivide(Ar = XsecArray) {
   // this function is about DOUBLE the resolution of the
@@ -29,7 +73,7 @@ function subdivide(Ar = XsecArray) {
   Cols = 2 * Cols;
   Rows = 2 * Rows;
   return newArray;
-}
+} // end of subdivide
 
 
 // array navigation functions

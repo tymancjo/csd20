@@ -33,8 +33,17 @@ function setup() { // this one comes from p5
   $('#zoomin').click(zoomin);
   $('#zoom1').click(zoom1);
   $('#subdivide').click(() => {
-    XsecArray = subdivide();
-    redrawAndUpdate();
+    if(Cols < 2000 && Rows < 2000){
+      XsecArray = subdivide();
+      redrawAndUpdate();
+    }
+  });
+  
+  $('#simplify').click(() => {
+    if(Cols > 4 && Rows > 4){
+      XsecArray = simplify();
+      redrawAndUpdate();
+    }
   });
 
 
