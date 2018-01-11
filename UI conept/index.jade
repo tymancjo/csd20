@@ -12,9 +12,9 @@ body
   navigation
     .tabs-buttons-bar
       .tabs-buttons
-        a.tab-button.is-active#btn-file <i class="fas fa-file"></i> File
+        a.tab-button#btn-file <i class="fas fa-file"></i> File
       
-        a.tab-button#btn-geometry <i class="fas fa-pencil-alt"></i> Geometry
+        a.tab-button.is-active#btn-geometry <i class="fas fa-pencil-alt"></i> Geometry
           
         a.tab-button#btn-setup <i class="fas fa-sliders-h"></i> Setup
           
@@ -27,7 +27,7 @@ body
         a.tab-button#btn-help <i class="fas fa-question-circle"></i> Help
           
     .tabs-bar
-      .bar#file
+      .bar.is-hidden#file
         .bar-button 
           .ico <i class="fas fa-file"></i>
           .label New Geometry 
@@ -39,7 +39,7 @@ body
           .label Save
           
           
-      .bar.is-hidden#geometry
+      .bar#geometry
         .bar-button.phase-selector.active#phA
           .ico <i class="fas fa-edit"></i></i>
           .label Draw Phase A
@@ -49,6 +49,22 @@ body
         .bar-button.phase-selector#phC
           .ico <i class="fas fa-edit"></i></i>
           .label Draw Phase C
+        
+        // spacer
+        .bar-button-space 
+        
+        .bar-button#zoomin
+          .ico <i class="fas fa-search-plus"></i>
+          .label Zoom In
+          
+        .bar-button#zoomout
+          .ico <i class="fas fa-search-minus"></i>
+          .label Zoom Out
+        
+        .bar-button#zoom1
+          .ico <i class="fas fa-expand"></i></i>
+          .label Zoom Reset
+        
         
         // spacer
         .bar-button-space 
@@ -89,5 +105,6 @@ body
   script(src="js/jquery-3.2.1.min.js")
   script(src="js/p5.js")
   script(src="js/main.js")
+  script(src="js/csdgeometry.js")
   
   

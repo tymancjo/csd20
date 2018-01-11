@@ -16,6 +16,7 @@ $darktxt: #333
   margin: 0
   box-sizing: border-box
 
+
 body
   background-color: $bck
   color: $txt
@@ -33,6 +34,7 @@ navigation
   border-bottom: 3px solid darken($bck, 10)
   background-color: darken($bck, 10)
   box-shadow: 0 0 15px black
+  max-height: 175px
 
 .is-hidden
   display: none
@@ -142,12 +144,39 @@ navigation
 
 
 // geometry drawing areas
-#canvas-area
+.geometry
   position: relative
   display: block
-  max-width: 100%
-  max-height: calc( 100vh - 200px)
+  width: 100%
+  height: calc( 100vh - 175px)
   overflow: scroll
+  padding: 10px
+
+#canvas-area
+  display: block
+  position: relative
+  transform-origin: 0 0
+  min-width: 100vw
+  min-height: 100vh
+  width: auto
+  height: auto
+  padding: 10px
+  // position: absolute
+  // display: block
+  // left: 0
+  // right: 0
+  // bottom: 0
+  // top: 0
+  // width: auto
+  // height: auto
+  // overflow: scroll
+
+
+canvas
+  display: block
+  position: relative
+  transform-origin: 0 0
+
 
 
 

@@ -1,20 +1,38 @@
 // initial global variables to start with.
+XsecArray = [];
 var dXmm = 20;
-var Cols = 60;
-var Rows = 50;
-var canvasScale = 3;
+var Cols = 100;
+var Rows = 100;
+var canvasScale = 1;
+var globalZoom = 1;
+var minGrid = 3;
 var mouseCol;
 var mouseRow;
 var currentPhase = 1;
+var dragStartX;
+var dragStartY;
+var currentScrollX;
+var currentScrollY;
+
+
 
 
 function setup() { // this one comes from p5
   console.log('Starting up');
+  let asize = fillArray(XsecArray, Rows * Cols, 0);
+  console.log('array elements: ' + asize);
+
+
 
   // button bindings section
   $('.tab-button').click((e) => {
     showBar(e.target, e.target.id.split('-')[1]);
   });
+
+  $('#zoomout').click(zoomout);
+  $('#zoomin').click(zoomin);
+  $('#zoom1').click(zoom1);
+
 
   $('.phase-selector').click((e) => {
 
@@ -41,11 +59,20 @@ function setup() { // this one comes from p5
     });
   }); // end of phase selector
 
-
+  // disabling the defoult right click on canvas element
+  $('canvas').contextmenu(() => false);
 
   // p5js Section
 
   let size = Math.min(floor((canvasScale * windowWidth - 50) / Cols), floor((canvasScale * windowHeight - 200) / Rows));
+
+  if (size < 4) {
+    size = 4
+  }
+
+  // lets normalize the scale now
+  canvasScale = Math.max(windowWidth / width, windowHeight / height);
+
 
   var canvas = createCanvas(size * Cols, size * Rows);
   canvas.parent('canvas-area');
@@ -60,15 +87,24 @@ function setup() { // this one comes from p5
 
 // DRAW MAIN LOOP
 function draw() {
-  console.log('updating canvas drawing');
-  background(200);
-  drawGrid(Rows, Cols, dXpx);
+  // console.log('updating canvas drawing');
+  // background(200);
+  // drawGrid(Rows, Cols, dXpx);
   noLoop();
 } // end of DRAW
 
 
 
 // Custom Functions
+
+
+
+function redrawAndUpdate() {
+  background(200);
+  drawGrid(Rows, Cols, dXpx);
+  drawArray(XsecArray);
+} // end of redraw and update
+
 function showBar(btn, BarId) {
   // first we hide all of those
   $('.bar').addClass('is-hidden');
@@ -76,55 +112,59 @@ function showBar(btn, BarId) {
 
   $('#' + BarId).removeClass('is-hidden');
   $(btn).addClass('is-active');
+} // end of show bar
 
-}
 
-function drawGrid(R, C, dX) {
-  stroke(125);
-  for (let x = dX; x < (C) * dX; x += dX) {
-    line(x, 0, x, height);
-  }
-  for (let x = dX; x < (R) * dX; x += dX) {
-    line(0, x, width, x);
-  }
-} // end of drawGrid
 
 function mouseMoved() {
-  mouseCol = floor(mouseX / dXpx)
-  mouseRow = floor(mouseY / dXpx)
-  console.log(mouseCol, mouseRow);
   // prevent default
   return false;
 } // end of mouseMoved
 
+function mouseDraw(){
+  // this function react on user mouse moves and presses on canvas area.
+
+  if (mouseRC().OK) { // if we are over canvas
+        let val;
+
+        if(mouseButton === LEFT){ // setting the value
+          val = currentPhase;
+        } else if (mouseButton === RIGHT){ // reseting the value
+          val = 0;
+        }
+        setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
+        drawPoint(mouseRC().C, mouseRC().R, val);
+      }// end if mouseRC().OK
+} // end of Mouse Draw
 
 function mouseDragged() {
-  mouseCol = floor(mouseX / dXpx)
-  mouseRow = floor(mouseY / dXpx)
+  if(mouseButton !== CENTER){ // drawing and setting up array
+    mouseDraw();
+  } else { // paning around with mouse
 
-  let color;
-  switch (currentPhase) {
-    case 1:
-      color = 'red';
-      break;
-    case 2:
-      color = 'green';
-      break;
-    case 3:
-      color = 'blue';
-      break
-    default:
-      color = 'white';
+    $('.geometry').scrollTop(currentScrollY + dragStartY - winMouseY);
+    $('.geometry').scrollLeft(currentScrollX + dragStartX - winMouseX);
   }
-  fill(color);
-  noStroke();
-  rect(mouseCol * dXpx + 1, mouseRow * dXpx + 1, dXpx - 1, dXpx - 1);
-
   // prevent default
   return false;
 } // end of mouseMoved
 
 
-// function mousePressed() {
-//    // redraw(1);
-//  } // end of mousePressed
+function mousePressed() {
+  if(mouseButton !== CENTER){ // drawing and setting up array
+    mouseDraw();
+  } else { // setting up drag start point for panning
+    dragStartX = winMouseX;
+    dragStartY = winMouseY;
+    currentScrollX = $('.geometry').scrollLeft();
+    currentScrollY = $('.geometry').scrollTop();
+  }
+
+  // prevent default
+  return false;
+} // end of mousePressed
+
+function mouseReleased(){
+  // prevent default
+  return false;
+}// end of mouse mouseReleased
