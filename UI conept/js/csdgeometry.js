@@ -7,8 +7,10 @@ function simplify(Ar = XsecArray) {
   // this function is about reduce the resolution of the
   // cross section array by 2
   let newArray = [];
+  let newRows = 0;
 
   for (let r = 0; r < Rows; r += 2) {
+    newRows++;
     for (let c = 0; c < Cols; c += 2) {
       // we grab 4 adjected pixels
       //and calculate the average
@@ -48,8 +50,10 @@ function simplify(Ar = XsecArray) {
       newArray.push(av);
     }
   }
-  Cols = floor(Cols / 2);
-  Rows = floor(Rows / 2);
+
+  Rows = newRows;
+  Cols = newArray.length / Rows;
+
   return newArray;
 } // end of simplify
 
@@ -170,6 +174,23 @@ function drawArray(Ar) {
 
 
 // zoom Functions
+function reload(){
+    zoom1();
+
+    let size = Math.min(floor((canvasScale * windowWidth - 50) / Cols), floor((canvasScale * windowHeight - 200) / Rows));
+      if (size < 4) {
+        size = 4;
+      }
+
+    resizeCanvas(size * Cols, size * Rows);
+    dXpx = round(min(height / Rows, width / Cols));
+
+    background(200);
+    drawGrid(Rows, Cols, dXpx);
+    drawArray(XsecArray);
+
+} // end of reload()
+
 function zoom1() {
   console.log('zoom1');
   globalZoom = 1;

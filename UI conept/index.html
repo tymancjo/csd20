@@ -9,13 +9,38 @@
   <title>Cross Section designer 2.0</title>
 </head>
 <body>
+  <div class="modal-boxes">
+    <div id="patterninput" class="modal-box is-hidden">
+      <div class="title"> 
+        <h2>Define Pattern</h2>
+      </div>
+      <div class="content">
+        <div class="input"> 
+          <label>Shift in coumns (x):</label>
+          <input type="text" value="0" size="3" id="patternC"/>
+        </div>
+        <div class="input">
+          <label>Shift in rows (y):</label>
+          <input type="text" value="0" size="3" id="patternR"/>
+        </div>
+        <div class="input">
+          <label>Number of copies:</label>
+          <input type="text" value="0" size="3" id="patternN"/>
+        </div>
+      </div>
+      <div class="buttons">
+        <button id="patternOK">Generate</button>
+        <button id="patternCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
   <navigation>
     <div class="tabs-buttons-bar">
       <div class="tabs-buttons"><a id="btn-file" class="tab-button"><i class="fas fa-file"></i> File</a><a id="btn-geometry" class="tab-button is-active"><i class="fas fa-pencil-alt"></i> Geometry</a><a id="btn-setup" class="tab-button"><i class="fas fa-sliders-h"></i> Setup</a><a id="btn-power" class="tab-button"><i class="fas fa-cogs"></i> Power Losses Pro</a><a id="btn-forces" class="tab-button"><i class="fas fa-exchange-alt"></i> ElDyn Forces</a><a id="btn-impedance" class="tab-button"><i class="fas fa-chart-bar"></i> Ipedance Calc</a><a id="btn-help" class="tab-button"><i class="fas fa-question-circle"></i> Help</a></div>
     </div>
     <div class="tabs-bar">
       <div id="file" class="bar is-hidden">
-        <div class="bar-button"> 
+        <div id="newfile" class="bar-button"> 
           <div class="ico"><i class="fas fa-file"></i></div>
           <div class="label">New Geometry </div>
         </div>
@@ -55,6 +80,10 @@
           <div class="ico"><i class="fas fa-expand"></i></i></div>
           <div class="label">Zoom Reset</div>
         </div>
+        <div id="reload" class="bar-button">
+          <div class="ico"><i class="fas fa-sync-alt"></i></i></div>
+          <div class="label">Refresh View</div>
+        </div>
         <!-- spacer-->
         <div class="bar-button-space"> </div>
         <div id="subdivide" class="bar-button">
@@ -65,7 +94,7 @@
           <div class="ico"><i class="fas fa-th-large"></i></div>
           <div class="label">Simplify</div>
         </div>
-        <div id="forces" class="bar-button"> 
+        <div id="pattern" class="bar-button">
           <div class="ico"><i class="fas fa-clone"></i></div>
           <div class="label">Pattern</div>
         </div>
@@ -92,9 +121,13 @@
   </navigation>
   <div class="geometry">
     <div id="canvas-area"></div>
-  </div>
+  </div><!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <!-- normal script imports etc  -->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/p5.js"></script>
-  <script src="js/main.js"></script>
   <script src="js/csdgeometry.js"></script>
+  <script src="js/files.js"></script>
+  <script src="js/master.js"></script><!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
 </body>

@@ -9,6 +9,27 @@ head
   link(rel="stylesheet", href="css/style.min.css")
   title Cross Section designer 2.0
 body
+  .modal-boxes
+    .modal-box.is-hidden#patterninput
+      .title 
+        h2 Define Pattern
+      .content
+        .input 
+          label Shift in coumns (x):
+          input(type='text' value="0" size=3)#patternC
+        .input
+          label Shift in rows (y):
+          input(type='text' value="0" size=3)#patternR
+        .input
+          label Number of copies:
+          input(type='text' value="0" size=3)#patternN
+      .buttons
+        button#patternOK Generate
+        button#patternCancel Cancel
+        
+      
+    
+
   navigation
     .tabs-buttons-bar
       .tabs-buttons
@@ -28,7 +49,7 @@ body
           
     .tabs-bar
       .bar.is-hidden#file
-        .bar-button 
+        .bar-button#newfile 
           .ico <i class="fas fa-file"></i>
           .label New Geometry 
         .bar-button 
@@ -65,6 +86,10 @@ body
           .ico <i class="fas fa-expand"></i></i>
           .label Zoom Reset
         
+        .bar-button#reload
+          .ico <i class="fas fa-sync-alt"></i></i>
+          .label Refresh View
+        
         
         // spacer
         .bar-button-space 
@@ -76,7 +101,7 @@ body
         .bar-button#simplify
           .ico <i class="fas fa-th-large"></i>
           .label Simplify
-        .bar-button#forces 
+        .bar-button#pattern
           .ico <i class="fas fa-clone"></i>
           .label Pattern
         .bar-button#impedance
@@ -101,10 +126,18 @@ body
     #canvas-area
       
   
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
   
+  <!-- normal script imports etc  -->
   script(src="js/jquery-3.2.1.min.js")
   script(src="js/p5.js")
-  script(src="js/main.js")
   script(src="js/csdgeometry.js")
+  script(src="js/files.js")
+  script(src="js/master.js")
+  
+  
+  <!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
   
   

@@ -13,6 +13,7 @@ var dragStartX;
 var dragStartY;
 var currentScrollX;
 var currentScrollY;
+var isModal = false;
 
 
 
@@ -29,22 +30,50 @@ function setup() { // this one comes from p5
     showBar(e.target, e.target.id.split('-')[1]);
   });
 
+  $('#newfile').click(newfile);
+
   $('#zoomout').click(zoomout);
   $('#zoomin').click(zoomin);
   $('#zoom1').click(zoom1);
+  $('#reload').click(reload);
+
   $('#subdivide').click(() => {
     if(Cols < 2000 && Rows < 2000){
       XsecArray = subdivide();
       redrawAndUpdate();
     }
   });
-  
+
   $('#simplify').click(() => {
-    if(Cols > 4 && Rows > 4){
+    if(Cols >= 4 && Rows >= 4){
       XsecArray = simplify();
       redrawAndUpdate();
     }
   });
+
+  $('#pattern').click(()=>{
+    $("#patterninput").removeClass('is-hidden');
+    isModal = true;
+  });
+
+  $('#patternCancel').click(()=>{
+    $("#patterninput").addClass('is-hidden');
+    isModal = false;
+  });
+
+  $('#patternOK').click(()=>{
+    C = parseInt($('#patternC').val());
+    R = parseInt($('#patternR').val());
+    N = parseInt($('#patternN').val());
+    if ((N > 0) && (C > 0 || R > 0 )){
+      $("#patterninput").addClass('is-hidden');
+      isModal = false;
+
+      console.log('lets pattren');
+    }
+  });
+
+
 
 
   $('.phase-selector').click((e) => {
@@ -106,11 +135,13 @@ function draw() {
   noLoop();
 } // end of DRAW
 
+function windowResized() {
+  reload();
+} // end of resizedWindow
+
 
 
 // Custom Functions
-
-
 
 function redrawAndUpdate() {
   dXpx = round(min(height / Rows, width / Cols));
@@ -139,34 +170,39 @@ function mouseMoved() {
 function mouseDraw() {
   // this function react on user mouse moves and presses on canvas area.
 
-  if (mouseRC().OK) { // if we are over canvas
-    let val;
+    if (!isModal){
+      if (mouseRC().OK) { // if we are over canvas
+      let val;
 
-    if (mouseButton === LEFT) { // setting the value
-      val = currentPhase;
-    } else if (mouseButton === RIGHT) { // reseting the value
-      val = 0;
-    }
-    setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
-    drawPoint(mouseRC().C, mouseRC().R, val);
-  } // end if mouseRC().OK
+      if (mouseButton === LEFT) { // setting the value
+        val = currentPhase;
+      } else if (mouseButton === RIGHT) { // reseting the value
+        val = 0;
+      }
+      setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
+      drawPoint(mouseRC().C, mouseRC().R, val);
+    } // end if mouseRC().OK
+  }// end of isModal
 } // end of Mouse Draw
 
 function mouseDragged() {
-  if (mouseButton !== CENTER) { // drawing and setting up array
-    mouseDraw();
-  } else { // paning around with mouse
+  if (!isModal){
+    if (mouseButton !== CENTER) { // drawing and setting up array
+      mouseDraw();
+    } else { // paning around with mouse
 
-    $('.geometry').scrollTop(currentScrollY + dragStartY - winMouseY);
-    $('.geometry').scrollLeft(currentScrollX + dragStartX - winMouseX);
-  }
-  // prevent default
-  return false;
+      $('.geometry').scrollTop(currentScrollY + dragStartY - winMouseY);
+      $('.geometry').scrollLeft(currentScrollX + dragStartX - winMouseX);
+    }
+    // prevent default
+    return false;
+}
 } // end of mouseMoved
 
 
 function mousePressed() {
-  if (mouseButton !== CENTER) { // drawing and setting up array
+  if (!isModal){
+    if (mouseButton !== CENTER) { // drawing and setting up array
     mouseDraw();
   } else { // setting up drag start point for panning
     dragStartX = winMouseX;
@@ -177,9 +213,12 @@ function mousePressed() {
 
   // prevent default
   return false;
+}
 } // end of mousePressed
 
 function mouseReleased() {
+  if (!isModal){
   // prevent default
   return false;
+}
 } // end of mouse mouseReleased
