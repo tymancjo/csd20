@@ -38,38 +38,42 @@ function setup() { // this one comes from p5
   $('#reload').click(reload);
 
   $('#subdivide').click(() => {
-    if(Cols < 2000 && Rows < 2000){
+    if (Cols < 2000 && Rows < 2000) {
       XsecArray = subdivide();
       redrawAndUpdate();
     }
   });
 
   $('#simplify').click(() => {
-    if(Cols >= 4 && Rows >= 4){
+    if (Cols >= 4 && Rows >= 4) {
       XsecArray = simplify();
       redrawAndUpdate();
     }
   });
 
-  $('#pattern').click(()=>{
+  $('#pattern').click(() => {
     $("#patterninput").removeClass('is-hidden');
     isModal = true;
   });
 
-  $('#patternCancel').click(()=>{
+  $('#patternCancel').click(() => {
     $("#patterninput").addClass('is-hidden');
     isModal = false;
   });
 
-  $('#patternOK').click(()=>{
-    C = parseInt($('#patternC').val());
-    R = parseInt($('#patternR').val());
-    N = parseInt($('#patternN').val());
-    if ((N > 0) && (C > 0 || R > 0 )){
+  $('#patternOK').click(() => {
+    let C = parseInt($('#patternC').val());
+    let R = parseInt($('#patternR').val());
+    let N = parseInt($('#patternN').val());
+
+    let patternSrc = parseInt($('input[name=patternSrc]:checked').val());
+    let patternAs = parseInt($('input[name=patternAs]:checked').val());
+
+    if ((N > 0) && (C > 0 || R > 0)) {
       $("#patterninput").addClass('is-hidden');
       isModal = false;
       console.log('lets pattren');
-      pattern(C,R,N);
+      pattern(C, R, N, patternSrc, patternAs);
       reload();
     }
   });
@@ -171,8 +175,8 @@ function mouseMoved() {
 function mouseDraw() {
   // this function react on user mouse moves and presses on canvas area.
 
-    if (!isModal){
-      if (mouseRC().OK) { // if we are over canvas
+  if (!isModal) {
+    if (mouseRC().OK) { // if we are over canvas
       let val;
 
       if (mouseButton === LEFT) { // setting the value
@@ -183,11 +187,11 @@ function mouseDraw() {
       setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
       drawPoint(mouseRC().C, mouseRC().R, val);
     } // end if mouseRC().OK
-  }// end of isModal
+  } // end of isModal
 } // end of Mouse Draw
 
 function mouseDragged() {
-  if (!isModal){
+  if (!isModal) {
     if (mouseButton !== CENTER) { // drawing and setting up array
       mouseDraw();
     } else { // paning around with mouse
@@ -197,29 +201,29 @@ function mouseDragged() {
     }
     // prevent default
     return false;
-}
+  }
 } // end of mouseMoved
 
 
 function mousePressed() {
-  if (!isModal){
+  if (!isModal) {
     if (mouseButton !== CENTER) { // drawing and setting up array
-    mouseDraw();
-  } else { // setting up drag start point for panning
-    dragStartX = winMouseX;
-    dragStartY = winMouseY;
-    currentScrollX = $('.geometry').scrollLeft();
-    currentScrollY = $('.geometry').scrollTop();
-  }
+      mouseDraw();
+    } else { // setting up drag start point for panning
+      dragStartX = winMouseX;
+      dragStartY = winMouseY;
+      currentScrollX = $('.geometry').scrollLeft();
+      currentScrollY = $('.geometry').scrollTop();
+    }
 
-  // prevent default
-  return false;
-}
+    // prevent default
+    return false;
+  }
 } // end of mousePressed
 
 function mouseReleased() {
-  if (!isModal){
-  // prevent default
-  return false;
-}
+  if (!isModal) {
+    // prevent default
+    return false;
+  }
 } // end of mouse mouseReleased

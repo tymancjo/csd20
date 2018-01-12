@@ -23,6 +23,24 @@ body
         .input
           label Number of copies:
           input(type='text' value="0" size=3)#patternN
+          
+      .content.columns
+        .input
+          label 
+            h3 Copy From
+            label.block <input type='radio' name='patternSrc' value=0 checked> no changes 
+            label.block <input type='radio' name='patternSrc' value=1> Phase A
+            label.block <input type='radio' name='patternSrc' value=2> Phase B
+            label.block <input type='radio' name='patternSrc' value=3> Phase C  
+          
+        .input
+          label 
+            h3 Copy As
+            label.block <input type='radio' name='patternAs' value=0 checked> no changes 
+            label.block <input type='radio' name='patternAs' value=1> Phase A
+            label.block <input type='radio' name='patternAs' value=2> Phase B
+            label.block <input type='radio' name='patternAs' value=3> Phase C
+          
       .buttons
         button#patternOK Generate
         button#patternCancel Cancel

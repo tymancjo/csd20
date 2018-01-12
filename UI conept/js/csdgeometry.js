@@ -79,7 +79,7 @@ function subdivide(Ar = XsecArray) {
   return newArray;
 } // end of subdivide
 
-function pattern(dC, dR, dN, Ar = XsecArray) {
+function pattern(dC, dR, dN, pFrom = 0, pAs = 0, Ar = XsecArray) {
   // this functions do a pattern copy of array
   // first lets figure out the new array size
   let newCols = dN * dC + Cols;
@@ -92,25 +92,38 @@ function pattern(dC, dR, dN, Ar = XsecArray) {
 
   let nC; // beginning of insert for this N
   let nR;
+  let newValue;
 
   // filling the array with source data as pattern Define
-    for (let n=0; n<dN+1; n++){ // loop over pattern number
-      nC = n * dC; // beginning of insert for this N
-      nR = n * dR;
+  for (let n = 0; n < dN + 1; n++) { // loop over pattern number
+    nC = n * dC; // beginning of insert for this N
+    nR = n * dR;
 
-      for (r=nR; r<nR+Rows; r++){
-        for (c=nC; c<nC+Cols; c++){
-            if(XsecArray[index(c-nC,r-nR)] !== 0) {
-              newArray[index(c,r,newCols)] = XsecArray[index(c-nC,r-nR)];
-            }
+    for (r = nR; r < nR + Rows; r++) {
+      for (c = nC; c < nC + Cols; c++) {
+        if (XsecArray[index(c - nC, r - nR)] !== 0) {
+
+          if (pAs === 0 || n === 0) {
+            newValue = XsecArray[index(c - nC, r - nR)];
+          } else {
+            newValue = pAs;
           }
+
+          if (pFrom === 0 || n === 0) {
+            newArray[index(c, r, newCols)] = newValue;
+          } else if (XsecArray[index(c - nC, r - nR)] === pFrom) {
+            newArray[index(c, r, newCols)] = newValue;
+          }
+
         }
-    } // end of loop over N
+      }
+    }
+  } // end of loop over N
 
-    Rows = newRows;
-    Cols = newCols;
+  Rows = newRows;
+  Cols = newCols;
 
-    XsecArray = newArray;
+  XsecArray = newArray;
 
 } // end of pattern
 
