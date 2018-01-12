@@ -8,6 +8,7 @@
 
 // $bck: #aaa
 $bck: #0f729d
+$gray: #999
 $txt: #eee
 $darktxt: #333
 $yellow: #edc122
@@ -20,10 +21,28 @@ $green: #20d568
 
 
 body
-  background-color: $bck
+  background-color: $gray
   color: $txt
   font-family: "Roboto" , sans-serif
   font-size: 14px
+  overflow: hidden
+
+.mouse-floating-box
+  position: absolute
+  z-index: 50
+  width: 70px
+  height: 30px
+  left: 30%
+  top: 30%
+  background-color: black
+  padding: 4px
+  font-size: 10px
+  opacity: 0.7
+  border-radius: 3px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
 
 .modal-box
   position: absolute
@@ -271,6 +290,7 @@ canvas
   position: relative
   transform-origin: 0 0
   margin: 0 auto
+  box-shadow: 0 0 20px black
 
 
 

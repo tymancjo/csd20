@@ -1,6 +1,6 @@
 // initial global variables to start with.
 XsecArray = [];
-var dXmm = 20;
+var dXmm = 10;
 var Cols = 20;
 var Rows = 20;
 var canvasScale = 1;
@@ -14,6 +14,10 @@ var dragStartY;
 var currentScrollX;
 var currentScrollY;
 var isModal = false;
+var mouseBox;
+var posXmm;
+var posYmm;
+var phaseColor = 'red';
 
 
 
@@ -22,6 +26,9 @@ function setup() { // this one comes from p5
   console.log('Starting up');
   let asize = fillArray(XsecArray, Rows * Cols, 0);
   console.log('array elements: ' + asize);
+  mouseBox = $('#mouseBox');
+  posXmm = $('#posXmm');
+  posYmm = $('#posYmm');
 
 
 
@@ -91,12 +98,15 @@ function setup() { // this one comes from p5
         switch (ev.id) {
           case 'phA':
             currentPhase = 1;
+            phaseColor = 'red';
             break;
           case 'phB':
             currentPhase = 2;
+            phaseColor = 'green';
             break;
           case 'phC':
             currentPhase = 3;
+            phaseColor = 'blue';
             break;
 
           default:
@@ -168,6 +178,11 @@ function showBar(btn, BarId) {
 
 
 function mouseMoved() {
+  if (!isModal) {
+    if (mouseRC().OK) {
+      infoBubble();
+    }
+  }
   // prevent default
   return false;
 } // end of mouseMoved
@@ -186,14 +201,27 @@ function mouseDraw() {
       }
       setPoint(mouseRC().C, mouseRC().R, val, XsecArray);
       drawPoint(mouseRC().C, mouseRC().R, val);
+
+      infoBubble();
+
     } // end if mouseRC().OK
   } // end of isModal
 } // end of Mouse Draw
+
+function infoBubble(){
+  // mouse move position info bubble
+  mouseBox.css('left',winMouseX+30 + 'px');
+  mouseBox.css('top',winMouseY + 'px');
+  mouseBox.css('background-color', phaseColor);
+  posXmm.text(floor(mouseX*dXmm/dXpx));
+  posYmm.text(floor(mouseY*dXmm/dXpx));
+}
 
 function mouseDragged() {
   if (!isModal) {
     if (mouseButton !== CENTER) { // drawing and setting up array
       mouseDraw();
+
     } else { // paning around with mouse
 
       $('.geometry').scrollTop(currentScrollY + dragStartY - winMouseY);

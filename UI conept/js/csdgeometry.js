@@ -51,6 +51,7 @@ function simplify(Ar = XsecArray) {
     }
   }
 
+  dXmm = dXmm * Rows/newRows;
   Rows = newRows;
   Cols = newArray.length / Rows;
 
@@ -76,6 +77,7 @@ function subdivide(Ar = XsecArray) {
   // adjusting the global variables
   Cols = 2 * Cols;
   Rows = 2 * Rows;
+  dXmm = dXmm / 2;
   return newArray;
 } // end of subdivide
 
