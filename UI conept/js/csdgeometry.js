@@ -79,6 +79,40 @@ function subdivide(Ar = XsecArray) {
   return newArray;
 } // end of subdivide
 
+function pattern(dC, dR, dN, Ar = XsecArray) {
+  // this functions do a pattern copy of array
+  // first lets figure out the new array size
+  let newCols = dN * dC + Cols;
+  let newRows = dN * dR + Rows;
+
+  // preparing the new array
+  newArray = [];
+  fillArray(newArray, newCols * newRows, 0);
+  console.log('New length: ' + newArray.length);
+
+  let nC; // beginning of insert for this N
+  let nR;
+
+  // filling the array with source data as pattern Define
+    for (let n=0; n<dN+1; n++){ // loop over pattern number
+      nC = n * dC; // beginning of insert for this N
+      nR = n * dR;
+
+      for (r=nR; r<nR+Rows; r++){
+        for (c=nC; c<nC+Cols; c++){
+            if(XsecArray[index(c-nC,r-nR)] !== 0) {
+              newArray[index(c,r,newCols)] = XsecArray[index(c-nC,r-nR)];
+            }
+          }
+        }
+    } // end of loop over N
+
+    Rows = newRows;
+    Cols = newCols;
+
+    XsecArray = newArray;
+
+} // end of pattern
 
 // array navigation functions
 function mouseRC() {
@@ -102,9 +136,9 @@ function mouseRC() {
   };
 }
 
-function index(C, R) {
+function index(C, R, Columns = Cols) {
   // figuring out the index in 1D array
-  return Cols * R + C;
+  return Columns * R + C;
 }
 
 function fillArray(Ar, Size, Val) {
@@ -174,20 +208,20 @@ function drawArray(Ar) {
 
 
 // zoom Functions
-function reload(){
-    zoom1();
+function reload() {
+  zoom1();
 
-    let size = Math.min(floor((canvasScale * windowWidth - 50) / Cols), floor((canvasScale * windowHeight - 200) / Rows));
-      if (size < 4) {
-        size = 4;
-      }
+  let size = Math.min(floor((canvasScale * windowWidth - 50) / Cols), floor((canvasScale * windowHeight - 200) / Rows));
+  if (size < 4) {
+    size = 4;
+  }
 
-    resizeCanvas(size * Cols, size * Rows);
-    dXpx = round(min(height / Rows, width / Cols));
+  resizeCanvas(size * Cols, size * Rows);
+  dXpx = round(min(height / Rows, width / Cols));
 
-    background(200);
-    drawGrid(Rows, Cols, dXpx);
-    drawArray(XsecArray);
+  background(200);
+  drawGrid(Rows, Cols, dXpx);
+  drawArray(XsecArray);
 
 } // end of reload()
 

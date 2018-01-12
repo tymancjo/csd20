@@ -68,8 +68,9 @@ function setup() { // this one comes from p5
     if ((N > 0) && (C > 0 || R > 0 )){
       $("#patterninput").addClass('is-hidden');
       isModal = false;
-
       console.log('lets pattren');
+      pattern(C,R,N);
+      reload();
     }
   });
 
