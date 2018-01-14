@@ -76,13 +76,38 @@ function setup() { // this one comes from p5
     let patternSrc = parseInt($('input[name=patternSrc]:checked').val());
     let patternAs = parseInt($('input[name=patternAs]:checked').val());
 
-    if ((N > 0) && (C > 0 || R > 0)) {
+    if ((N > 0) && (abs(C) > 0 || abs(R) > 0)) {
       $("#patterninput").addClass('is-hidden');
       isModal = false;
       console.log('lets pattren');
       pattern(C, R, N, patternSrc, patternAs);
       reload();
     }
+  });
+
+  $('#swap').click(() => {
+    $("#swapinput").removeClass('is-hidden');
+    isModal = true;
+  });
+
+  $('#swapCancel').click(() => {
+    $("#swapinput").addClass('is-hidden');
+    isModal = false;
+  });
+
+  $('#swapOK').click(() => {
+    let C = parseInt($('#swapC').val());
+    let R = parseInt($('#swapR').val());
+    let N = parseInt($('#swapN').val());
+
+    let patternSrc = parseInt($('input[name=swapSrc]:checked').val());
+    let patternAs = parseInt($('input[name=swapAs]:checked').val());
+
+      $("#swapinput").addClass('is-hidden');
+      isModal = false;
+      console.log('lets swap');
+      pattern(0, 0, 1, patternSrc, patternAs);
+      reload();
   });
 
 

@@ -48,6 +48,29 @@ body
       .buttons
         button#patternOK Generate
         button#patternCancel Cancel
+    
+    
+    .modal-box.is-hidden#swapinput
+      .title 
+        h2 Swap phases
+      .content.columns
+        .input
+          label 
+            h3 Change the:
+            label.block <input type='radio' name='swapSrc' value=1 checked> Phase A
+            label.block <input type='radio' name='swapSrc' value=2> Phase B
+            label.block <input type='radio' name='swapSrc' value=3> Phase C  
+          
+        .input
+          label 
+            h3 Into:
+            label.block <input type='radio' name='swapAs' value=1 checked> Phase A
+            label.block <input type='radio' name='swapAs' value=2> Phase B
+            label.block <input type='radio' name='swapAs' value=3> Phase C
+          
+      .buttons
+        button#swapOK Generate
+        button#swapCancel Cancel
         
       
     
@@ -126,7 +149,7 @@ body
         .bar-button#pattern
           .ico <i class="fas fa-clone"></i>
           .label Pattern
-        .bar-button#impedance
+        .bar-button#swap
           .ico <i class="fas fa-exchange-alt"></i>
           .label Swap
       

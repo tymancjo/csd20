@@ -81,11 +81,20 @@ function subdivide(Ar = XsecArray) {
   return newArray;
 } // end of subdivide
 
-function pattern(dC, dR, dN, pFrom = 0, pAs = 0, Ar = XsecArray) {
+function pattern(dC, dR, dN, pFrom = 0, pAs = 0, eraseSrc = false, Ar = XsecArray) {
   // this functions do a pattern copy of array
   // first lets figure out the new array size
-  let newCols = dN * dC + Cols;
-  let newRows = dN * dR + Rows;
+  // **** INPUTS ***
+  // dC - shift in columns
+  // dR - shift in rows
+  // dN - number of copies
+  // pFrom - source phase, if 0 then all
+  // pAs - paste as Phase - if 0 then no changes from source
+  // eraseSrc - if true the source will be erased (usefull for shift)
+  // Ar - the array to modify - defoult XsecArray
+
+  let newCols = dN * abs(dC) + Cols;
+  let newRows = dN * abs(dR) + Rows;
 
   // preparing the new array
   newArray = [];
@@ -98,8 +107,22 @@ function pattern(dC, dR, dN, pFrom = 0, pAs = 0, Ar = XsecArray) {
 
   // filling the array with source data as pattern Define
   for (let n = 0; n < dN + 1; n++) { // loop over pattern number
-    nC = n * dC; // beginning of insert for this N
-    nR = n * dR;
+
+    if(dC < 0 && n===0){
+      nC = dN * abs(dC);  // this is to make possible for -dC
+    } else if (dC < 0) {
+      nC = dN * abs(dC) + n * dC;  // this is to make possible for -dC
+    } else {
+      nC = n * dC; // beginning of insert for this N
+    }
+
+    if (dR < 0 && n===0){
+      nR = dN * abs(dR);
+    } else if (dR < 0) {
+      nR = dN * abs(dR) + n * dR;
+    } else {
+      nR = n * dR;
+    }
 
     for (r = nR; r < nR + Rows; r++) {
       for (c = nC; c < nC + Cols; c++) {
@@ -111,12 +134,15 @@ function pattern(dC, dR, dN, pFrom = 0, pAs = 0, Ar = XsecArray) {
             newValue = pAs;
           }
 
-          if (pFrom === 0 || n === 0) {
-            newArray[index(c, r, newCols)] = newValue;
+          if (pFrom === 0 || (n === 0)) {
+            if (eraseSrc && XsecArray[index(c - nC, r - nR)] === pFrom) {
+              // here is like not do anything as the 0 is already there
+            } else {
+              newArray[index(c, r, newCols)] = newValue;
+            }
           } else if (XsecArray[index(c - nC, r - nR)] === pFrom) {
             newArray[index(c, r, newCols)] = newValue;
           }
-
         }
       }
     }

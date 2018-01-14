@@ -57,6 +57,33 @@
         <button id="patternCancel">Cancel</button>
       </div>
     </div>
+    <div id="swapinput" class="modal-box is-hidden">
+      <div class="title"> 
+        <h2>Swap phases</h2>
+      </div>
+      <div class="content columns">
+        <div class="input">
+          <label> 
+            <h3>Change the:</h3>
+            <label class="block"><input type='radio' name='swapSrc' value=1 checked> Phase A</label>
+            <label class="block"><input type='radio' name='swapSrc' value=2> Phase B</label>
+            <label class="block"><input type='radio' name='swapSrc' value=3> Phase C  </label>
+          </label>
+        </div>
+        <div class="input">
+          <label> 
+            <h3>Into:</h3>
+            <label class="block"><input type='radio' name='swapAs' value=1 checked> Phase A</label>
+            <label class="block"><input type='radio' name='swapAs' value=2> Phase B</label>
+            <label class="block"><input type='radio' name='swapAs' value=3> Phase C</label>
+          </label>
+        </div>
+      </div>
+      <div class="buttons">
+        <button id="swapOK">Generate</button>
+        <button id="swapCancel">Cancel</button>
+      </div>
+    </div>
   </div>
   <navigation>
     <div class="tabs-buttons-bar">
@@ -122,7 +149,7 @@
           <div class="ico"><i class="fas fa-clone"></i></div>
           <div class="label">Pattern</div>
         </div>
-        <div id="impedance" class="bar-button">
+        <div id="swap" class="bar-button">
           <div class="ico"><i class="fas fa-exchange-alt"></i></div>
           <div class="label">Swap</div>
         </div>
