@@ -1,0 +1,188 @@
+// output: index.html
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  meta(http-equiv="X-UA-Compatible", content="ie=edge")
+  link(rel="stylesheet", href="css/fontawesome-all.css")
+  link(rel="stylesheet", href="css/style.min.css")
+  title Cross Section designer 2.0
+body
+  .modal-boxes
+    .mouse-floating-box.rows#mouseBox 
+      .input X: <span id='posXmm'></span>mm
+      .input Y: <span id='posYmm'></span>mm
+    
+    .modal-box.is-hidden#patterninput
+      .title 
+        h2 Define Pattern
+      .content
+        .input 
+          label Shift in coumns (x):
+          input(type='text' value="0" size=3)#patternC
+        .input
+          label Shift in rows (y):
+          input(type='text' value="0" size=3)#patternR
+        .input
+          label Number of copies:
+          input(type='text' value="0" size=3)#patternN
+          
+      .content.columns
+        .input
+          label 
+            h3 Copy From
+            label.block <input type='radio' name='patternSrc' value=0 checked> no changes 
+            label.block <input type='radio' name='patternSrc' value=1> Phase A
+            label.block <input type='radio' name='patternSrc' value=2> Phase B
+            label.block <input type='radio' name='patternSrc' value=3> Phase C  
+          
+        .input
+          label 
+            h3 Copy As
+            label.block <input type='radio' name='patternAs' value=0 checked> no changes 
+            label.block <input type='radio' name='patternAs' value=1> Phase A
+            label.block <input type='radio' name='patternAs' value=2> Phase B
+            label.block <input type='radio' name='patternAs' value=3> Phase C
+          
+      .buttons
+        button#patternOK Generate
+        button#patternCancel Cancel
+    
+    
+    .modal-box.is-hidden#swapinput
+      .title 
+        h2 Swap phases
+      .content.columns
+        .input
+          label 
+            h3 Change the:
+            label.block <input type='radio' name='swapSrc' value=1 checked> Phase A
+            label.block <input type='radio' name='swapSrc' value=2> Phase B
+            label.block <input type='radio' name='swapSrc' value=3> Phase C  
+          
+        .input
+          label 
+            h3 Into:
+            label.block <input type='radio' name='swapAs' value=1 checked> Phase A
+            label.block <input type='radio' name='swapAs' value=2> Phase B
+            label.block <input type='radio' name='swapAs' value=3> Phase C
+          
+      .buttons
+        button#swapOK Generate
+        button#swapCancel Cancel
+        
+      
+    
+
+  navigation
+    .tabs-buttons-bar
+      .tabs-buttons
+        a.tab-button#btn-file <i class="fas fa-file"></i> File
+      
+        a.tab-button.is-active#btn-geometry <i class="fas fa-pencil-alt"></i> Geometry
+          
+        a.tab-button#btn-setup <i class="fas fa-sliders-h"></i> Setup
+          
+        a.tab-button#btn-power <i class="fas fa-cogs"></i> Power Losses Pro
+          
+        a.tab-button#btn-forces <i class="fas fa-exchange-alt"></i> ElDyn Forces
+        
+        a.tab-button#btn-impedance <i class="fas fa-chart-bar"></i> Ipedance Calc
+        
+        a.tab-button#btn-help <i class="fas fa-question-circle"></i> Help
+          
+    .tabs-bar
+      .bar.is-hidden#file
+        .bar-button#newfile 
+          .ico <i class="fas fa-file"></i>
+          .label New Geometry 
+        .bar-button 
+          .ico <i class="fas fa-upload"></i>
+          .label Load
+        .bar-button 
+          .ico <i class="fas fa-download"></i>
+          .label Save
+          
+          
+      .bar#geometry
+        .bar-button.phase-selector.active#phA
+          .ico <i class="fas fa-edit"></i></i>
+          .label Draw Phase A
+        .bar-button.phase-selector#phB
+          .ico <i class="fas fa-edit"></i></i>
+          .label Draw Phase B
+        .bar-button.phase-selector#phC
+          .ico <i class="fas fa-edit"></i></i>
+          .label Draw Phase C
+        
+        // spacer
+        .bar-button-space 
+        
+        .bar-button#zoomin
+          .ico <i class="fas fa-search-plus"></i>
+          .label Zoom In
+          
+        .bar-button#zoomout
+          .ico <i class="fas fa-search-minus"></i>
+          .label Zoom Out
+        
+        .bar-button#zoom1
+          .ico <i class="fas fa-expand"></i></i>
+          .label Zoom Reset
+        
+        .bar-button#reload
+          .ico <i class="fas fa-sync-alt"></i></i>
+          .label Refresh View
+        
+        
+        // spacer
+        .bar-button-space 
+         
+        
+        .bar-button#subdivide
+          .ico <i class="fas fa-th"></i>
+          .label Subdivide
+        .bar-button#simplify
+          .ico <i class="fas fa-th-large"></i>
+          .label Simplify
+        .bar-button#pattern
+          .ico <i class="fas fa-clone"></i>
+          .label Pattern
+        .bar-button#swap
+          .ico <i class="fas fa-exchange-alt"></i>
+          .label Swap
+      
+      .bar.is-hidden#setup
+        .bar-button
+          .label Grid size
+          input(type='text' value="10" size='4')
+          input(type='text' value="10" size='4')
+          input(type='submit' value='Apply')
+        
+        .bar-button
+          .label Area size
+          input(type='text' value="10" size='4')
+          input(type='text' value="10" size='4')
+          input(type='submit' value='Apply')
+        
+  
+  .geometry
+    #canvas-area
+      
+  
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  
+  <!-- normal script imports etc  -->
+  script(src="js/jquery-3.2.1.min.js")
+  script(src="js/p5.js")
+  script(src="js/csdgeometry.js")
+  script(src="js/files.js")
+  script(src="js/master.js")
+  
+  
+  <!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
+  
+  
