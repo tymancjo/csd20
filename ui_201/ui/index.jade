@@ -71,9 +71,11 @@ body
       .buttons
         button#swapOK Generate
         button#swapCancel Cancel
-        
       
-    
+        
+    .modal-box.is-hidden#calc
+      .title 
+        h2 Calculations Started. Wait for result windows
 
   navigation
     .tabs-buttons-bar
@@ -165,6 +167,11 @@ body
           input(type='text' value="10" size='4')
           input(type='text' value="10" size='4')
           input(type='submit' value='Apply')
+      
+      .bar.is-hidden#power
+        .bar-button#python
+          .ico <i class="fas fa-exchange-alt"></i>
+          .label Run Python
         
   
   .geometry

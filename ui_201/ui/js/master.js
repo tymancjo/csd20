@@ -44,6 +44,17 @@ function setup() { // this one comes from p5
   $('#zoom1').click(zoom1);
   $('#reload').click(reload);
 
+  $('#python').click(()=>{
+    $('#calc').removeClass('is-hidden');
+    setTimeout(function(){
+      python();
+    },500);
+
+
+
+  });
+
+
   $('#subdivide').click(() => {
     if (Cols < 2000 && Rows < 2000) {
       XsecArray = subdivide();
@@ -280,3 +291,15 @@ function mouseReleased() {
     return false;
   }
 } // end of mouse mouseReleased
+
+function python() {
+
+  dataToPython = {
+    Arr: XsecArray,
+    dX: dXmm,
+    C: Cols
+  };
+
+  PyFunction(dataToPython);
+  $('#calc').addClass('is-hidden');
+}
